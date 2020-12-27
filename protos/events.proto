@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package protos;
+
+import "google/protobuf/timestamp.proto";
+
+service Events {
+  rpc Listen(ListenEventsReq) returns (stream ListenEventsRes) {}
+}
+
+message ListenEventsReq {
+  // optional
+  google.protobuf.Timestamp since = 1;
+  // optional
+  google.protobuf.Timestamp until = 2;
+}
+
+message ListenEventsRes {
+  Event event = 1;
+}
+
+message Event {
+  string id = 1;
+  string raw = 2;
+  string output = 3;
+	string priority = 34;
+  string rule = 5;
+  google.protobuf.Timestamp time = 6;
+}
